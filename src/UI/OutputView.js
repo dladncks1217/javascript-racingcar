@@ -9,6 +9,14 @@ const OutputView = {
     Console.print(str + carState);
   },
 
+  printWinner(winners) {
+    Console.print(`${MESSAGE.WINNER} : ${winners.join(', ')}`);
+  },
+
+  endGame() {
+    Console.close();
+  },
+
   ErrorPrintCarName() {
     Console.print(ERROR.INPUT_CAR);
   },

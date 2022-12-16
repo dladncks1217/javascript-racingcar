@@ -19,6 +19,11 @@ class Car {
     if (state === this.#state) return true;
     return false;
   }
+
+  getCarName() {
+    const result = this.#name;
+    return result;
+  }
 }
 
 module.exports = Car;

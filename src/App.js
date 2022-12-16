@@ -9,8 +9,11 @@ class App {
   #cars;
   #winnerState;
   #attemptCount;
+  #winnerList;
 
   play() {
+    this.#winnerList = [];
+    this.#winnerState = 0;
     return this.inputCarNames();
   }
 
@@ -50,7 +53,7 @@ class App {
 
   moveRecursive() {
     this.move(0);
-    // return this.quitGame();
+    return this.getWinner();
   }
 
   move(attempt) {
@@ -65,7 +68,18 @@ class App {
     this.move(attempt + 1);
   }
 
-  quitGame() {}
+  getWinner() {
+    console.log(this.#winnerState);
+    this.#cars.forEach((car) => {
+      if (car.isWinner(this.#winnerState)) this.#winnerList.push(car.getCarName());
+    });
+    OutputView.printWinner(this.#winnerList);
+    return this.quitGame();
+  }
+
+  quitGame() {
+    OutputView.endGame();
+  }
 }
 
 const app = new App();
