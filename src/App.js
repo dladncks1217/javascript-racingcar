@@ -1,3 +1,4 @@
+const { Random } = require('@woowacourse/mission-utils');
 const Car = require('./domain/Car');
 const InputView = require('./UI/InputView');
 const OutputView = require('./UI/OutputView');
@@ -39,7 +40,7 @@ class App {
       try {
         verify.isNumber(input);
         this.#attemptCount = Number(input);
-        return move();
+        return this.moveRecursive();
       } catch (error) {
         OutputView.ErrorPrintNumberCheck();
         return this.inputTryAttempts();
@@ -47,14 +48,24 @@ class App {
     });
   }
 
-  move() {
+  moveRecursive() {
+    this.move(0);
+    // return this.quitGame();
+  }
+
+  move(attempt) {
+    if (attempt > this.#attemptCount) return;
     this.#cars.forEach((car) => {
       const moveOrNot = Random.pickNumberInRange(0, 9);
       const carState = car.move(moveOrNot);
       this.#winnerState = Math.max(this.#winnerState, carState[1]);
+
       OutputView.carMove(carState[0], carState[1]);
     });
+    this.move(attempt + 1);
   }
+
+  quitGame() {}
 }
 
 const app = new App();

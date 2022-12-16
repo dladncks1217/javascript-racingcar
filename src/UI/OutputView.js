@@ -5,8 +5,7 @@ const OutputView = {
   carMove(name, state) {
     let str = `${name} : `;
     let carState = '';
-    for (let index; index < state; index++) carState += MESSAGE.CAR_MOVE;
-
+    for (let index = 0; index < state; index++) carState += MESSAGE.CAR_MOVE;
     Console.print(str + carState);
   },
 
