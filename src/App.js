@@ -7,6 +7,7 @@ const verify = require('./utils/verify');
 class App {
   #cars;
   #winnerState;
+  #attemptCount;
 
   play() {
     return this.inputCarNames();
@@ -30,7 +31,19 @@ class App {
     cars.forEach((name, index) => {
       this.#cars[index] = new Car(name);
     });
-    console.log(this.#cars);
+    return this.inputTryAttempts();
+  }
+
+  inputTryAttempts() {
+    InputView.inputMove((input) => {
+      try {
+        verify.isNumber(input);
+        this.#attemptCount = Number(input);
+      } catch (error) {
+        OutputView.ErrorPrintNumberCheck();
+        return this.inputTryAttempts();
+      }
+    });
   }
 }
 
