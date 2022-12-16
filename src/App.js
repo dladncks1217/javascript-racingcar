@@ -39,10 +39,20 @@ class App {
       try {
         verify.isNumber(input);
         this.#attemptCount = Number(input);
+        return move();
       } catch (error) {
         OutputView.ErrorPrintNumberCheck();
         return this.inputTryAttempts();
       }
+    });
+  }
+
+  move() {
+    this.#cars.forEach((car) => {
+      const moveOrNot = Random.pickNumberInRange(0, 9);
+      const carState = car.move(moveOrNot);
+      this.#winnerState = Math.max(this.#winnerState, carState[1]);
+      OutputView.carMove(carState[0], carState[1]);
     });
   }
 }
